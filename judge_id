@@ -1,0 +1,28 @@
+function judge_id(id) {
+            var my_id = id;
+            my_id = my_id.toUpperCase();
+            if (my_id.length == 18) {
+                //判断是否18位
+                //正则判断是否符合身份证的格式
+                if (!/^\d{17}\d|X$/i.test(my_id)) {
+                    return 0;
+                } else {
+                    //定义身份证号前17位的校验权
+                    var arr_right = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+                    //前17位运算后的正确校验码
+                    var arr_valid = [1, 0, "X", 9, 8, 7, 6, 5, 4, 3, 2];
+                    var sum = 0, check_code;
+                    for (var i = 0; i < my_id.length-1; i++) {
+                        sum += parseInt(my_id[i]) * arr_right[i];
+                    }
+                    check_code = sum % 11;
+                    if (arr_valid[check_code] == my_id.substr(17,1)) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                }
+            } else {
+                return 0;
+            }
+        }
